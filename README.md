@@ -27,6 +27,12 @@ I do some experiments for my own curiosity and to take away lessons.
   - Increase batch size
 
 ![charater embedded](./imgs/output.png)
+
 *Image of 2 dim Embedded characters. Quite amazed seeing that vowels are in the cluster. Letter y is more alike vowles which is make sense since the data is people name*
+
+Ma Question  
+1. what is the minimum loss we can get in theoretical way? not from empirical.
+   It seems related to Entropy. Can we even calculate it?
+
 
 ### Lecture4 batchnorm
