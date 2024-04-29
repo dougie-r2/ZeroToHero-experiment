@@ -26,13 +26,42 @@ I do some experiments for my own curiosity and to take away lessons.
   - Larger embedding dimension
   - Increase batch size
 
-![charater embedded](./imgs/output.png)
+<p align="center">
+  <img src="./imgs/output.png" alt="drawing" width="400"/>
+</p>  
 
 *Image of 2 dim Embedded characters. Quite amazed seeing that vowels are in the cluster. Letter y is more alike vowles which is make sense since the data is people name*
 
-Ma Question  
+#### Ma Question  
 1. what is the minimum loss we can get in theoretical way? not from empirical.
    It seems related to Entropy. Can we even calculate it?
 
 
 ### Lecture4 batchnorm
+- we can get `expected initial loss` from the possible outcomes. For example, if our problem have 4 possible outcomes and we assume that all outcomes are equally likely, then -log(1/4) would be the expected loss at the first iteration.
+- To achieve first quality, logits should be near zero in firts initialization. How?
+  - Make last layer's parameter as low as can be by multiplying small number like 0.01
+  - Do batchnorm, layernorm etc.
+- This removes the warm up stage.(the first few iteration for squasing weights smaller and make sharply loss down like hockeystick.)
+- There is also activation function problem. we used tanh squasing function.
+The problem is that most of the outcome of tanh is 1 or -1. The reason is pre-activation data is too broad.
+<p align="center">
+  <img src="./imgs/tanh_output.png" alt="drawing" width="300"/>
+</p>
+<p align="center">
+    <em>Histogram of the activation tanh outputs. too saturated</em>
+</p>
+
+<p align="center">
+  <img src="./imgs/preactivation.png" alt="drawing" width="300"/>
+</p>
+<p align="center">
+    <em>Histogram of the pre-activation data. too broad</em>
+</p>
+
+<p align="center">
+  <img src="./imgs/act-tanh.png" alt="drawing" width="500"/>
+</p>
+<p align="center">
+    <em>If there is i th column which is all white, then i th neuron is dead one. White means that the output of tanh is in the flat region -1 or 1.</em>
+</p>
