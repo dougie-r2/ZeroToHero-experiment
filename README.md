@@ -25,6 +25,7 @@ I do some experiments for my own curiosity and to take away lessons.
   - Wider hidden layer dimension ([related blog post](posthttps://lilianweng.github.io/posts/2022-09-08-ntk/))
   - Larger embedding dimension
   - Increase batch size
+  - More context! (fundamental)
 
 <p align="center">
   <img src="./imgs/output.png" alt="drawing" width="400"/>
@@ -38,7 +39,7 @@ I do some experiments for my own curiosity and to take away lessons.
 
 
 ### Lecture4 batchnorm
-- we can get `expected initial loss` from the possible outcomes. For example, if our problem have 4 possible outcomes and we assume that all outcomes are equally likely, then -log(1/4) would be the expected loss at the first iteration.
+- we can get `expected initial loss` from the possible outcomes. For example, if our problem has 4 possible outcomes and we assume that all outcomes are equally likely, then -log(1/4) would be the expected loss at the first iteration.
 - To achieve first quality, logits should be near zero in firts initialization. How?
   - Make last layer's parameter as low as can be by multiplying small number like 0.01
   - Do batchnorm, layernorm etc.
@@ -65,3 +66,19 @@ The problem is that most of the outcome of tanh is 1 or -1. The reason is pre-ac
 <p align="center">
     <em>If there is i th column which is all white, then i th neuron is dead one. White means that the output of tanh is in the flat region -1 or 1.</em>
 </p>
+
+- we want to make all the ouputs of layers roughly to be unit gaussian distributed throughout the whole NN. Adding on that, we also allow the distribution move around and scale by itself. We can make it by using batchnorm! [Batchnorm paper 2015](https://arxiv.org/abs/1502.03167)
+- Batchnorm has also scale and shift parameters which can be learnt from backprop.
+- Better use layernorm than batchnorm!
+- **How can we say that training our model is going well?**
+  - Visualize activation distribution(forward pass) and gradients distribution(backward pass) and see the consistency, stability throughout the layers except the last one.
+  - See also the update magnitude(lr * grad) to its data ratio and see the stabiliy around 1e-3
+
+| Meh   |   Good         |
+|:-------------:|:-------------:|
+| ![dummy](imgs/layers_activation_dist.png) |  ![dummy](imgs/layers_activation_dist2.png) |
+| ![dummy](imgs/layers_gradient_dist.png) |    ![dummy](imgs/layers_gradient_dist2.png)   |
+| ![dummy](imgs/update_ratio.png) | ![dummy](imgs/update_ratio2.png) |
+
+
+### Lecture5 backprop
