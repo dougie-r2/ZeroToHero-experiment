@@ -22,7 +22,7 @@ I do some experiments for my own curiosity and to take away lessons.
   - Numerically well behaved since it subtract the maximum value of the logits. 
 - Find good initial learning rate with exponentially spaced and then apply first big step of that range of candidates later apply small one for preventing loss divergence 
 - There are several ways to improve the model
-  - Wider hidden layer dimension ([related blog post](posthttps://lilianweng.github.io/posts/2022-09-08-ntk/))
+  - Wider hidden layer dimension ([related blog post](https://lilianweng.github.io/posts/2022-09-08-ntk/))
   - Larger embedding dimension
   - Increase batch size
   - More context! (fundamental)
